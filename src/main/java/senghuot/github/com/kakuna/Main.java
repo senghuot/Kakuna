@@ -2,6 +2,7 @@ package senghuot.github.com.kakuna;
 
 import senghuot.github.com.kakuna.services.Atomizer;
 import senghuot.github.com.kakuna.services.Registration;
+import senghuot.github.com.kakuna.web.WebServer;
 
 /**
  * This is the main application to invoke other services.
@@ -28,6 +29,7 @@ public class Main {
 
         if (server.equals("reg") || server.equals("registration")) Registration.main(args);
         else if (server.equals("atomizer")) Atomizer.main(args);
+        else if (server.equals("web")) WebServer.main(args);
         else error();
     }
 

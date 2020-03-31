@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: web-service
+
+
+server:
+  port: 9999
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 5
