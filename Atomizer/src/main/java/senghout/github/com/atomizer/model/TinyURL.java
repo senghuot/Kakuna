@@ -9,11 +9,6 @@ public class TinyURL {
     private String tinyUrl;
     private String url;
 
-    public TinyURL(String tinyUrl, String url) {
-        this.tinyUrl = tinyUrl;
-        this.url = url;
-    }
-
     public String getTinyUrl() {
         return tinyUrl;
     }
