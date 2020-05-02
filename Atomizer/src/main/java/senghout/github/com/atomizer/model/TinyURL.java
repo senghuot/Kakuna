@@ -1,4 +1,4 @@
-package senghuot.github.com.kakuna.model;
+package senghout.github.com.atomizer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,11 +8,6 @@ public class TinyURL {
     @Id
     private String tinyUrl;
     private String url;
-
-    public TinyURL(String tinyUrl, String url) {
-        this.tinyUrl = tinyUrl;
-        this.url = url;
-    }
 
     public String getTinyUrl() {
         return tinyUrl;

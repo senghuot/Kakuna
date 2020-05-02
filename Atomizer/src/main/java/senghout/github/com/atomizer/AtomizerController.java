@@ -1,10 +1,10 @@
-package senghuot.github.com.kakuna.services;
+package senghout.github.com.atomizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
-import senghuot.github.com.kakuna.Repo.TinyUrlRepo;
-import senghuot.github.com.kakuna.model.TinyURL;
+import senghout.github.com.atomizer.model.TinyURL;
+import senghout.github.com.atomizer.repo.TinyURLRepo;
 
 @RestController
 public class AtomizerController {
@@ -13,7 +13,7 @@ public class AtomizerController {
     Environment environment;
 
     @Autowired
-    TinyUrlRepo repo;
+    TinyURLRepo repo;
 
     @RequestMapping(value = "/tst")
     public String tst() {
@@ -26,10 +26,10 @@ public class AtomizerController {
     }
 
     @PostMapping(value = "/", consumes = {"application/json"})
-    public String addURL(@RequestBody String url) {
-        String shortURL = url.toUpperCase();
-        TinyURL tinyURL = new TinyURL(shortURL, url);
-        repo.save(tinyURL);
+    public String addURL(@RequestBody TinyURL url) {
+        String shortURL = url.getUrl().toUpperCase();
+        url.setTinyUrl(shortURL + Math.random());
+        repo.save(url);
         return shortURL;
     }
 }
