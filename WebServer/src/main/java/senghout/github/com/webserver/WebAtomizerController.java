@@ -1,4 +1,4 @@
-package senghuot.github.com.kakuna.web;
+package senghout.github.com.webserver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ public class WebAtomizerController {
 
     @RequestMapping(value = "/", headers = "Accept=application/json")
     public String homepage() {
-        return service.homepage();
+        return "hi";//service.homepage();
     }
 
 }

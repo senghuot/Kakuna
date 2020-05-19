@@ -1,4 +1,4 @@
-package senghuot.github.com.kakuna.web;
+package senghout.github.com.webserver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
