@@ -8,8 +8,6 @@ import senghout.github.com.atomizer.model.TinyUrl;
 import senghout.github.com.atomizer.model.Zoo;
 import senghout.github.com.atomizer.repo.TinyUrlRepo;
 
-import javax.annotation.PostConstruct;
-
 @RestController
 public class AtomizerController {
 
@@ -28,8 +26,10 @@ public class AtomizerController {
     @LoadBalanced
     protected RestTemplate restTemplate;
 
-    @PostConstruct
-    public void init() {
+    public AtomizerController(AtomizerUtils atomizerUtils, TinyUrlRepo repo, Heimdall heimdall) {
+        this.atomizerUtils = atomizerUtils;
+        this.repo = repo;
+        this.heimdall = heimdall;
         zoo = heimdall.getNextRange();
     }
 
