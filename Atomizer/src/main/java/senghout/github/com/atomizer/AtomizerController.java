@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import senghout.github.com.atomizer.model.AddUrlInput;
 import senghout.github.com.atomizer.model.TinyUrl;
 import senghout.github.com.atomizer.model.Zoo;
 import senghout.github.com.atomizer.repo.TinyUrlRepo;
@@ -30,7 +31,6 @@ public class AtomizerController {
         this.atomizerUtils = atomizerUtils;
         this.repo = repo;
         this.heimdall = heimdall;
-        zoo = heimdall.getNextRange();
     }
 
     @GetMapping(value = "/find/{TinyUrl}")
@@ -40,21 +40,20 @@ public class AtomizerController {
     }
 
     @PostMapping(value = "/add", consumes = {"application/json"})
-    public String addUrl(@RequestBody String fullUrl) {
+    public String addUrl(@RequestBody AddUrlInput data) {
+        if (zoo == null || zoo.low == zoo.high) {
+            zoo = getNextRange();
+        }
         final String tinyUrl = atomizerUtils.encodeNumber(zoo.low++);
-        final TinyUrl tiny = new TinyUrl(tinyUrl, fullUrl);
+        final TinyUrl tiny = new TinyUrl(tinyUrl, data.fullUrl);
         repo.save(tiny);
 
-        if (zoo.low == zoo.high) {
-            zoo = heimdall.getNextRange();
-        }
         return tinyUrl;
     }
 
-    @GetMapping(value = "/visit")
-    public Zoo addUrl() {
+    private Zoo getNextRange() {
         Zoo zoo = restTemplate.getForObject(
-                "http://web-service/range",
+                "http://heimdall",
                 Zoo.class);
         return zoo;
     }

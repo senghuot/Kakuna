@@ -7,33 +7,28 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 @RestController
 public class WebServerController {
 
     @Autowired
     protected WebAtomizerService atomizerService;
 
-    @Autowired
-    protected WebHeimdallService heimdallService;
-
     // We are injecting an instance of WebAtomizerService into the REST API endpoints that WebServer is hosting
-    public WebServerController(WebAtomizerService atomizerService, WebHeimdallService heimdallService) {
+    public WebServerController(WebAtomizerService atomizerService) {
         this.atomizerService = atomizerService;
-        this.heimdallService = heimdallService;
     }
 
-    @RequestMapping(value = "/", headers = "Accept=application/json")
-    public String homepage() {
+    @RequestMapping(value = "/find/{tinyUrl}", method = GET)
+    public void find(@PathVariable String tinyUrl, HttpServletResponse response) throws IOException {
         // Calls the atomizer endpoint that we want to connect to
         // TODO implement an actual value from the mapping request
-        return atomizerService.visitUrl("000gUYq5");
-    }
-
-    @RequestMapping(value = "/range", headers = "Accept=application/json")
-    public Zoo nextRange() {
-        // Calls the heimdallService that we used DI to create to make a request to the heimdallService
-        // and return the next range back.
-        return heimdallService.nextRange();
+        String fullUrl = atomizerService.visitUrl(tinyUrl);
+        response.setHeader("Location", fullUrl);
+        response.setStatus(302);
     }
 
     @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
@@ -41,4 +36,5 @@ public class WebServerController {
         String res = atomizerService.addUrl(url.fullUrl);
         return res;
     }
+
 }
