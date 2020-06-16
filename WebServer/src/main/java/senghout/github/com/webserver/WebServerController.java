@@ -1,8 +1,11 @@
 package senghout.github.com.webserver;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class WebServerController {
@@ -31,5 +34,11 @@ public class WebServerController {
         // Calls the heimdallService that we used DI to create to make a request to the heimdallService
         // and return the next range back.
         return heimdallService.nextRange();
+    }
+
+    @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
+    public String updatePerson(@RequestBody TinyUrl url, HttpServletResponse response) throws JSONException {
+        String res = atomizerService.addUrl(url.fullUrl);
+        return res;
     }
 }

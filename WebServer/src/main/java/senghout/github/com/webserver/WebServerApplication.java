@@ -39,4 +39,9 @@ public class WebServerApplication {
 	public WebServerController webServerController() {
 		return new WebServerController(atomizerService(), heimdallService());
 	}
+
+	@Bean
+	public GreetingController greetingController() {
+		return new GreetingController();
+	}
 }
