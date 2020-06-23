@@ -37,4 +37,8 @@ public class WebServerController {
         return res;
     }
 
+    @GetMapping("/index")
+    public String index(Model model) {
+        return "index";
+    }
 }

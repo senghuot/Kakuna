@@ -11,7 +11,6 @@ import senghout.github.com.atomizer.repo.TinyUrlRepo;
 
 @RestController
 public class AtomizerController {
-
     private Zoo zoo;
 
     @Autowired
@@ -23,14 +22,11 @@ public class AtomizerController {
     @Autowired
     AtomizerUtils atomizerUtils;
 
-    @Autowired
-    @LoadBalanced
-    protected RestTemplate restTemplate;
-
     public AtomizerController(AtomizerUtils atomizerUtils, TinyUrlRepo repo, Heimdall heimdall) {
         this.atomizerUtils = atomizerUtils;
         this.repo = repo;
         this.heimdall = heimdall;
+        zoo = heimdall.getNextRange();
     }
 
     @GetMapping(value = "/find/{TinyUrl}")
@@ -42,19 +38,12 @@ public class AtomizerController {
     @PostMapping(value = "/add", consumes = {"application/json"})
     public String addUrl(@RequestBody AddUrlInput data) {
         if (zoo == null || zoo.low == zoo.high) {
-            zoo = getNextRange();
+            zoo = heimdall.getNextRange();
         }
         final String tinyUrl = atomizerUtils.encodeNumber(zoo.low++);
         final TinyUrl tiny = new TinyUrl(tinyUrl, data.fullUrl);
         repo.save(tiny);
 
         return tinyUrl;
-    }
-
-    private Zoo getNextRange() {
-        Zoo zoo = restTemplate.getForObject(
-                "http://heimdall",
-                Zoo.class);
-        return zoo;
     }
 }
