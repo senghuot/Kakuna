@@ -3,10 +3,10 @@ package senghout.github.com.webserver;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,18 +14,16 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@EnableDiscoveryClient
 public class WebAtomizerService {
 
     @Autowired
-    @LoadBalanced
     protected RestTemplate restTemplate;
 
-    protected String serviceUrl;
+    @Autowired
+    Environment environment;
 
-    public WebAtomizerService() {
-        this.serviceUrl = "http://atomizer";
-    }
+    @Value("${atomizer.service.url}")
+    protected String serviceUrl;
 
     public String visitUrl(String tinyUrl) {
         return restTemplate.getForObject(
