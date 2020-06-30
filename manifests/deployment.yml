@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "sclicluster-99fd"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "sclicluster-99fd"
+    spec:
+      containers:
+        - name: "sclicluster-99fd"
+          image: "scliregistry.azurecr.io/sclicluster"
+          ports:
+          - containerPort: 9999
