@@ -1,0 +1,50 @@
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: scliregistry.azurecr.io
+        username: ${{ secrets.acr_scliregistry_username }}
+        password: ${{ secrets.acr_scliregistry_password }}
+    
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/WebServer" -f  "WebServer/Dockerfile" -t scliregistry.azurecr.io/sclicluster:${{ github.sha }}
+        docker push scliregistry.azurecr.io/sclicluster:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      with:
+         kubeconfig: ${{ secrets.aks_sclicluster_kubeConfig }}
+      id: login
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep sclicluster5646 | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace sclicluster5646`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: sclicluster5646
+        container-registry-url: scliregistry.azurecr.io
+        container-registry-username: ${{ secrets.acr_scliregistry_username }}
+        container-registry-password: ${{ secrets.acr_scliregistry_password }}
+        secret-name: scliclusterdockerauth
+       
+    - uses: azure/k8s-deploy@v1
+      with:
+        namespace: sclicluster5646
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          scliregistry.azurecr.io/sclicluster:${{ github.sha }}
+        imagepullsecrets: |
+          scliclusterdockerauth
