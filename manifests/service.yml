@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: "sclicluster-99fd"
+    labels:
+        app: "sclicluster-99fd"
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 9999
+      targetPort: 9999
+      protocol: TCP
+      name: http
+    selector:
+        app: "sclicluster-99fd"
