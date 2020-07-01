@@ -47,6 +47,8 @@
                             container.removeChild(container.firstChild);
                         }
                         document.getElementById("result").appendChild(linkElement);
+                    } else if (xmlhttp.status == 429) {
+                        container.innerHTML = JSON.parse(xmlhttp.responseText).message;
                     } else {
                         container.innerHTML = "Something went wrong, please try again!";
                     }

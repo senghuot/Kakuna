@@ -9,4 +9,4 @@ RUN mvn package
 FROM openjdk:8
 COPY --from=MAVEN_BUILD /target/*.jar /app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
-EXPOSE 9999
+EXPOSE 8888
