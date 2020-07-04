@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: scliregistry.azurecr.io/atomizer-image
+          image: atomizer-image
           ports:
             - containerPort: 8888
 ---
