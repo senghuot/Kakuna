@@ -38,7 +38,7 @@ public class AtomizerController {
     }
 
     @GetMapping(value = "/tst2")
-    public String tst() {
+    public String tst2() {
         return "from pipeline";
     }
 
