@@ -32,6 +32,11 @@ public class AtomizerController {
         setupNextRange();
     }
 
+    @GetMapping(value = "/tst")
+    public String tst() {
+        return "tst";
+    }
+
     @GetMapping(value = "/find/{TinyUrl}")
     public String getUrl(@PathVariable("TinyUrl")String tinyUrl) {
         TinyUrl url = repo.findByTinyUrl(tinyUrl);
