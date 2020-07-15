@@ -28,4 +28,5 @@ spec:
   ports:
     - port: 80
       targetPort: 9999
+  loadBalancerIP: 52.224.17.58
   type: LoadBalancer
