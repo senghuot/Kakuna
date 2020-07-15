@@ -22,11 +22,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: webserver-service
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: kakuna-resource-group
 spec:
   selector:
     app: webserver
   ports:
     - port: 80
       targetPort: 9999
-  loadBalancerIP: 52.224.17.58
+  loadBalancerIP: 104.45.183.216
   type: LoadBalancer
