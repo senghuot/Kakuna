@@ -21,6 +21,9 @@ profiles:
     activation:
       - command: dev
 
-  - name: ghost
+  - name: beta
     deploy:
       kubeContext: sclicluster
+      kubectl:
+        manifests:
+          - webserver-beta.yaml

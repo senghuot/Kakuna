@@ -11,7 +11,7 @@ build:
 deploy:
   kubectl:
     manifests:
-    - atomizer.yaml
+    - atomizer-dev.yaml
 
 # Defines profile environments such DEV, PROD
 profiles:
@@ -21,6 +21,9 @@ profiles:
     activation:
         - command: dev
 
-  - name: ghost
+  - name: beta
     deploy:
       kubeContext: sclicluster
+      kubectl:
+        manifests:
+          - atomizer-beta.yaml

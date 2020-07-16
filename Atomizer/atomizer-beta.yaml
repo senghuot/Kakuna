@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atomizer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atomizer
+  template:
+    metadata:
+      labels:
+        app: atomizer
+    spec:
+      containers:
+        - name: app
+          image: scliregistry.azurecr.io/atomizer-image:#{Build.BuildId}#
+          ports:
+            - containerPort: 8888
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atomizer-service
+spec:
+  selector:
+    app: atomizer
+  ports:
+    - port: 8888
+      targetPort: 8888
+  type: LoadBalancer
