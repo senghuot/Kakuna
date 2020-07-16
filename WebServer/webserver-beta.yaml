@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: webserver-image:#{Build.BuildId}#
+          image: scliregistry.azurecr.io/webserver-image:#{Build.BuildId}#
           ports:
             - containerPort: 9999
 ---
