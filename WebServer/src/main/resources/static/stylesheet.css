@@ -1,15 +1,22 @@
 body {
     display: flex;
     justify-content: center;
+    background-color: #4696e5;
+    color: #d0e4f8;
+    background-image: url(/overlay.png), url(/pattern-size1.svg);
+    font-family: Arial, Helvetica, sans-serif;
+    background-size: auto, cover;
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 52px;
     margin: 0;
+    color: white;
 }
 
 h3 {
-    margin-top: 0;
+    margin-top: 10;
+    font-size: 24px;
 }
 
 .title-container {
@@ -18,6 +25,7 @@ h3 {
 
 .container {
     padding-top: 150px;
+    width: 50%;
 }
 
 body {
@@ -25,13 +33,14 @@ body {
 }
 
 #result {
-    padding-top: 20px;
+    padding-top: 25px;
 }
 
 #submit-button {
     height: 55px;
     margin-bottom: 1px;
     padding: 0 10px;
+    background: #1b70c3;
 }
 
 #input-url {
@@ -40,4 +49,17 @@ body {
 
 .button-label {
     font-size: 12px;
+}
+
+.submission-form {
+    text-align: center;
+}
+
+a {
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+}
+
+input {
+    color: white;
 }
