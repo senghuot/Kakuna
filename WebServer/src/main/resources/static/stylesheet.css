@@ -58,12 +58,13 @@ body {
 
 a {
     border-bottom-color: rgba(255, 255, 255, 0.5);
-    color: #ffffff;
+    color: white;
 }
 
 input {
-    color: white;
+    color: white !important;
     width: 300px;
+    caret-color: white !important;
 }
 
 .mdc-notched-outline__leading {
