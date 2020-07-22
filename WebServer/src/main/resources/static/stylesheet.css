@@ -25,7 +25,7 @@ h3 {
 
 .container {
     padding-top: 150px;
-    width: 50%;
+    width: 100%;
 }
 
 body {
@@ -34,6 +34,7 @@ body {
 
 #result {
     padding-top: 25px;
+    text-align: center;
 }
 
 #submit-button {
@@ -62,4 +63,43 @@ a {
 
 input {
     color: white;
+    width: 300px;
+}
+
+.mdc-notched-outline__leading {
+    border-color: white !important;
+}
+
+.mdc-notched-outline__trailing {
+    border-color: white !important;
+}
+
+@media max-width: 600px {
+    h1 {
+        font-size: 100px;
+    }
+
+    h3 {
+        font-size: 46px;
+    }
+
+    .mdc-text-field mdc-text-field--outlined {
+        height: 100px;
+    }
+
+    input {
+        width: 600px;
+        height: 100px;
+        font-size: 40px;
+    }
+
+    #submit-button {
+        height: 108px;
+        margin-bottom: 8px;
+        width: 128px;
+    }
+
+    .button-label {
+        font-size: 22px;
+    }
 }
